@@ -146,7 +146,10 @@ public class Peer {
 			// starting Node
 			Peer initialNode = node.predecessor;
 			while (true) {
-				long shiftId = shift(currentNode.id, powerOfTwo(i));
+				long powerOfTwo = powerOfTwo(i);
+				if (range(initialNode.id, currentNode.id) >= powerOfTwo)
+					break;
+				long shiftId = shift(currentNode.id, powerOfTwo);
 				if (inRange(shiftId, initialNode.id, node.id, true)) {
 					//only when shiftId is within that range (not equal to the boundary)
 					if (shiftId > initialNode.id)
@@ -154,7 +157,6 @@ public class Peer {
 						//we are inserting
 						if (insert)
 						{
-		
 								currentNode.fingerTable[i] = node;
 						}
 						//we are deleting
